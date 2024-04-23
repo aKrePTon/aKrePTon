@@ -9,15 +9,12 @@ const {
 } = require("discord.js");
 const client = require("../index");
 const config = require("../config.json");
+const mainConfig = require('../../mainConfig.json'); 
+const emo = mainConfig.emojis; 
 const { DisTube, Song, SearchResultVideo } = require("distube");
 const { DeezerPlugin } = require("@distube/deezer");
 const { SpotifyPlugin } = require("@distube/spotify");
 const { SoundCloudPlugin } = require("@distube/soundcloud");
-const wait = require('node:timers/promises').setTimeout;
-const { YtDlpPlugin } = require("@distube/yt-dlp");
-const db = require(`quick.db`);
-const { red } = require("colors");
-const PlayerMap = new Map();
 
 let spotifyoptions = {
 	parallel: true,
@@ -80,14 +77,14 @@ distube.on("initQueue", (queue) => {
 distube.on(`playSong`, (queue, song) => {
 	try {
 		queue.textChannel.send({
-      content: `> :notes: *Playing*: **${song.name}** - \`(${song.formattedDuration})\``
+      content: `> ${emo.play} *Playing*: **${song.name}** - \`(${song.formattedDuration})\``
     });
-		console.log(`playSong ${song.name}ShNider`)
+	//	console.log(`playSong ${song.name}`)
 	} catch (err) {
 		console.log(err);
 	}
 });
-
+/*
 
 var _0x6e6c=["\x61\x64\x64\x53\x6F\x6E\x67","\x3A\x6E\x6F\x74\x65\x73\x3A\x20\x41\x64\x64\x65\x64\x20\x2A\x2A","\x6E\x61\x6D\x65","\x2A\x2A\x20\x2D\x20\x2A\x2A\x5C\x60\x28","\x66\x6F\x72\x6D\x61\x74\x74\x65\x64\x44\x75\x72\x61\x74\x69\x6F\x6E","\x29\x5C\x60\x2A\x2A\x20\x74\x6F\x20\x74\x68\x65\x20\x71\x75\x65\x75\x65\x20\x62\x79\x20","\x75\x73\x65\x72","\x53\x68\x4E","\x73\x65\x6E\x64","\x74\x65\x78\x74\x43\x68\x61\x6E\x6E\x65\x6C","\x61\x64\x64\x53\x6F\x6E\x67\x20","","\x6C\x6F\x67","\x6F\x6E"];
 distube[_0x6e6c[13]](_0x6e6c[0],(_0xc100x1,_0xc100x2)=>
@@ -103,10 +100,10 @@ distube[_0x6e6c[13]](_0x6e6c[0],(_0xc100x1,_0xc100x2)=>
 }
 )
 
-
+*/
 distube.on("addList", (queue, playlist) => {
 	try {
-		queue.textChannel.send({ content: `:notes: Added **${playlist.name}** playlist **\`(${playlist.songs.length} songs)\`** to queue` }),
+		queue.textChannel.send({ content: `${emo.add} Added **${playlist.name}** playlist **\`(${playlist.songs.length} songs)\`** to queue` }),
 		console.log(`addList ${playlist.name} - ${playlist.songs.length}`)
 	} catch (err) {
 		console.log(err);
@@ -115,7 +112,7 @@ distube.on("addList", (queue, playlist) => {
 
 distube.on("noRelated", (queue) => {
 	try {
-		queue.textChannel.send({ content: `:rolling_eyes: Can't find related video to play.` });
+		queue.textChannel.send({ content: `${emo.error} Can't find related video to play.` });
 	} catch (err) {
 		console.log(err);
 	}
@@ -124,7 +121,7 @@ distube.on("noRelated", (queue) => {
 distube.on("error", (channel, e) => {
 	try {
 		var embed = new EmbedBuilder()
-			.setAuthor({ name: `Error` })
+			.setAuthor({ name: `${emo.error} Error` })
 			.setColor("#470000")
 			.setDescription(e);
 			if (channel) channel.send({ embeds: [embed] })
@@ -135,7 +132,7 @@ distube.on("error", (channel, e) => {
 
 distube.on(`deleteQueue`, (queue) => {
 	try {
-		console.log(`finish queue`);
+	//	console.log(`finish queue`);
 	} catch (err) {
 		console.log(err);
 	}
@@ -143,7 +140,7 @@ distube.on(`deleteQueue`, (queue) => {
 
 distube.on("finish", (queue) => {
 	try {
-		console.log(`finish`);
+	//	console.log(`finish`);
 	} catch (err) {
 		console.log(err);
 	}
@@ -151,7 +148,7 @@ distube.on("finish", (queue) => {
 
 distube.on(`finishSong`, (queue, song) => {
 	try {
-		console.log(`finishSong ${song.name}`);
+	//	console.log(`finishSong ${song.name}`);
 	} catch (err) {
 		console.log(err);
 	}
@@ -159,7 +156,7 @@ distube.on(`finishSong`, (queue, song) => {
 
 distube.on("disconnect", (queue) => {
 	try {
-		console.log(`The voice channel is Disconnected! Leaving the voice channel!`);
+		//console.log(`The voice channel is Disconnected! Leaving the voice channel!`);
 	} catch (err) {
 		console.log(err);
 	}
@@ -167,7 +164,7 @@ distube.on("disconnect", (queue) => {
 
 distube.on("empty", (queue) => {
 	try {
-		console.log(`The voice channel is empty! Leaving the voice channel!`);
+	//	console.log(`The voice channel is empty! Leaving the voice channel!`);
 	} catch (err) {
 		console.log(err);
 	}
@@ -202,7 +199,7 @@ distube.on("searchResult", (message, result) => {
 
 distube.on("searchCancel", (message) => {
 	try {
-		message.channel.send("Searching canceled");
+		message.channel.send(`${emo.cancel} Searching canceled`);
 	} catch (err) {
 		console.log(err);
 	}
@@ -210,7 +207,7 @@ distube.on("searchCancel", (message) => {
 
 distube.on("searchInvalidAnswer", (message) => {
 	try {
-		message.channel.send("Invalid number of result.");
+		message.channel.send(`${emo.error}Invalid number of result.`);
 	} catch (err) {
 		console.log(err);
 	}
@@ -218,7 +215,7 @@ distube.on("searchInvalidAnswer", (message) => {
 
 distube.on("searchNoResult", (message) => {
 	try {
-		message.channel.send("No result found!");
+		message.channel.send(` ${emo.error} No result found!`);
 	} catch (err) {
 		console.log(err);
 	}
