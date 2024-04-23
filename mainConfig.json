@@ -1,0 +1,29 @@
+{
+  "tokens": {
+    "t1":"MTExNDg4MzE2NDYwMzY3ODgwMQ.Gd_Z8L.1oCdlFDLfYbb1iXYT_CPh5LZ3_waYOPB7Fx2v0", 
+    "t2":"MTEyMjkwMzg2NzUxNzA1OTIyMw.GUS-qF.iB5EDTgQSUblbiXPkGKp7X-c1O6anjFHUQnVwo",
+    "t3":"", 
+    "t4":"",
+    "t5":"", 
+    "t6":"",
+    "t7":"", 
+    "t8":"",
+    "t9":"", 
+    "t10":""
+  },
+  "mainClient": {
+   "activity": "TSC", 
+   "status":"idle", 
+   "prefix":"", 
+   "np": "!"
+  }, 
+  "emojis":{
+    "add":"",
+    "play":"", 
+    "error":"", 
+    "cancel":"", 
+    "react":""
+  }, 
+  "mainBotToken":"MTExNzgwMDU2MzAwMjgzNDk2NA.GjLMTS.XHwGSvIlBFsgIF3UAUhk6J5BiLLGJUG79KO0Fo", 
+  "mainPrefix":"#" 
+}
